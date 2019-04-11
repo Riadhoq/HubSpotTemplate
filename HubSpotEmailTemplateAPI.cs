@@ -25,20 +25,20 @@ namespace FEE.CRM
         //    "source":"The template source goes here"
         //}
         public HubSpotEmailTemplateAPI() { }
-        //https://api.hubapi.com/content/api/v2/templates/5645420155?hapikey=aa11d8c9-718c-4875-ad0d-aa63a4944e21 
+        //https://api.hubapi.com/content/api/v2/templates/:templateId?hapikey=YOUR_API_KEY
         private static readonly string apiKey = ConfigurationManager.AppSettings["HubSpotApiKey"];
 
 
         public string CreateHubspotDailyTemplate(string html)
         {
             string file = "custom/email/FEEDaily/FEEdaily-" + DateTime.Now.ToString("MM-dd-yy:hh:mm:ss") + ".html";
-
+            string requestUrl = "https://api.hubapi.com/content/api/v2/templates?hapikey="+ apiKey;
             try
             {
-                var httpWebRequest = (HttpWebRequest)WebRequest.Create("https://api.hubapi.com/content/api/v2/templates?hapikey=aa11d8c9-718c-4875-ad0d-aa63a4944e21");
+                var httpWebRequest = (HttpWebRequest)WebRequest.Create(requestUrl);
                 httpWebRequest.Method = "POST";
 
-                httpWebRequest.Headers.Add("hapikey:aa11d8c9-718c-4875-ad0d-aa63a4944e21");
+                httpWebRequest.Headers.Add("hapikey:"+apiKey);
                 httpWebRequest.ContentType = "application/json";
                 using (var streamWriter = new StreamWriter(httpWebRequest.GetRequestStream()))
                 {
@@ -70,13 +70,13 @@ namespace FEE.CRM
         public string CreateHubspotWeeklyTemplate(string html)
         {
             string file = "custom/email/FEEWeekly/FEEweekly-" + DateTime.Now.ToString("MM-dd-yy:hh:mm:ss") + ".html";
-
+            string requestUrl = "https://api.hubapi.com/content/api/v2/templates?hapikey="+ apiKey;
             try
             {
-                var httpWebRequest = (HttpWebRequest)WebRequest.Create("https://api.hubapi.com/content/api/v2/templates?hapikey=aa11d8c9-718c-4875-ad0d-aa63a4944e21");
+                var httpWebRequest = (HttpWebRequest)WebRequest.Create(requestUrl);
                 httpWebRequest.Method = "POST";
 
-                httpWebRequest.Headers.Add("hapikey:aa11d8c9-718c-4875-ad0d-aa63a4944e21");
+                httpWebRequest.Headers.Add("hapikey:"+apiKey);
                 httpWebRequest.ContentType = "application/json";
                 using (var streamWriter = new StreamWriter(httpWebRequest.GetRequestStream()))
                 {
